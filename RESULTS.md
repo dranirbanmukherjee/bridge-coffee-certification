@@ -136,12 +136,3 @@ SVD ordering != confound alignment. In FT, both controls correlate with WC. In O
 | Preregistered models | — | §E (estimation approach) |
 
 *Nuisance control correlations and coffee LOOIC are internal diagnostics computed from the estimation sample; they are not reported in the manuscript or web appendix.*
-
----
-
-## Pipeline History
-
-- **v1**: Student-t family, wrong nuisance CSVs (unified model used for separate estimation)
-- **v2-v4**: Intermediate attempts (deleted)
-- **v5 (current)**: Gaussian family, single joint BRIDGE model (3 attributes), correct nuisance, separate estimation only, Optuna hyperparameter search
-- Joint estimation removed — homogeneous INTN coefficients forced FT/Org tradeoff
