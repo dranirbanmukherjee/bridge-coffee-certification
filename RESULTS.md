@@ -2,7 +2,7 @@
 
 **Studies**: Fair Trade (N=353) and Organic (N=352)
 **Family**: Gaussian (identity link)
-**Pipeline**: v5 (single joint BRIDGE model, separate estimation, Gaussian)
+**Pipeline**: single joint BRIDGE model, separate per-experiment estimation
 **Validated**: 2026-06-13 (20/20 FE match, 4/4 LOOIC match)
 
 ---
