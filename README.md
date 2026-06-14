@@ -34,10 +34,10 @@ No Python or BRIDGE installation required for the Quick Start.
 - **R** (4.3+) with packages: `brms`, `cmdstanr`, `dplyr`
 - **Python** (3.14+) — only needed to re-run the BRIDGE pipeline (Steps 1–4)
 
-Install the `bridge` package (for Steps 1–4) from its public repository:
+Install the `bridge` package (for Steps 1–4) from its public repository, pinned to the version used in the paper:
 
 ```bash
-pip install "git+https://github.com/dranirbanmukherjee/bridge.git"
+pip install "git+https://github.com/dranirbanmukherjee/bridge.git@v0.1.0"
 ```
 
 The augmentation step (Step 2) additionally needs a local language model:
