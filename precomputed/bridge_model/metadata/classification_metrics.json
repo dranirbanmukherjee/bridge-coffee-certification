@@ -1,0 +1,29 @@
+{
+  "profile": {
+    "accuracy": 1.0,
+    "macro_f1": 1.0,
+    "weighted_f1": 1.0,
+    "top_5_accuracy": 1.0,
+    "num_classes": 2,
+    "num_classes_in_data": 2,
+    "num_samples": 2416
+  },
+  "condition": {
+    "accuracy": 1.0,
+    "macro_f1": 1.0,
+    "weighted_f1": 1.0,
+    "top_5_accuracy": 1.0,
+    "num_classes": 2,
+    "num_classes_in_data": 2,
+    "num_samples": 2416
+  },
+  "experiment": {
+    "accuracy": 1.0,
+    "macro_f1": 1.0,
+    "weighted_f1": 1.0,
+    "top_5_accuracy": 1.0,
+    "num_classes": 2,
+    "num_classes_in_data": 2,
+    "num_samples": 2416
+  }
+}

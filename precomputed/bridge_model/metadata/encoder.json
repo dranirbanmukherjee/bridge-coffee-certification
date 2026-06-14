@@ -1,0 +1,21 @@
+{
+  "attribute_names": [
+    "profile",
+    "condition",
+    "experiment"
+  ],
+  "mappings": {
+    "profile": {
+      "chocolatey_fullbodied": 0,
+      "nutty_balanced": 1
+    },
+    "condition": {
+      "base": 0,
+      "certified": 1
+    },
+    "experiment": {
+      "fairtrade": 0,
+      "organic": 1
+    }
+  }
+}

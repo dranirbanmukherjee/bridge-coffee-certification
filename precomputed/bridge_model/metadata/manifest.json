@@ -1,0 +1,51 @@
+{
+  "attributes": [
+    "profile",
+    "condition",
+    "experiment"
+  ],
+  "n_samples": 2416,
+  "embedding_dim_per_attribute": 14,
+  "num_nuisance_dims": null,
+  "embedding_backend": "gemma",
+  "full_embedding_dim": null,
+  "classification_metrics": {
+    "profile": {
+      "accuracy": 1.0,
+      "macro_f1": 1.0,
+      "weighted_f1": 1.0,
+      "top_5_accuracy": 1.0,
+      "num_classes": 2,
+      "num_classes_in_data": 2,
+      "num_samples": 2416
+    },
+    "condition": {
+      "accuracy": 1.0,
+      "macro_f1": 1.0,
+      "weighted_f1": 1.0,
+      "top_5_accuracy": 1.0,
+      "num_classes": 2,
+      "num_classes_in_data": 2,
+      "num_samples": 2416
+    },
+    "experiment": {
+      "accuracy": 1.0,
+      "macro_f1": 1.0,
+      "weighted_f1": 1.0,
+      "top_5_accuracy": 1.0,
+      "num_classes": 2,
+      "num_classes_in_data": 2,
+      "num_samples": 2416
+    }
+  },
+  "files": {
+    "profile_embedding": "output/bridge_model/representations/profile_embedding.npy",
+    "condition_embedding": "output/bridge_model/representations/condition_embedding.npy",
+    "experiment_embedding": "output/bridge_model/representations/experiment_embedding.npy",
+    "nuisance_embedding": "output/bridge_model/representations/nuisance_embedding.npy",
+    "encoder": "output/bridge_model/metadata/encoder.json",
+    "hyperparameters": "output/bridge_model/metadata/hyperparameters.json",
+    "config": "output/bridge_model/metadata/config.json",
+    "classification_metrics": "output/bridge_model/metadata/classification_metrics.json"
+  }
+}

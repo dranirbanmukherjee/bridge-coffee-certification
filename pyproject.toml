@@ -1,0 +1,43 @@
+# Tooling configuration for the BRIDGE coffee-certification reproduction bundle.
+# This bundle is a set of ordered pipeline scripts (not an installable package),
+# so this file carries only linter settings. Mirrors the policy used by the
+# bridge package (github.com/dranirbanmukherjee/bridge).
+#
+#   ruff check code
+#   pylint code/*.py --rcfile=pyproject.toml
+
+[tool.ruff]
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "W"]
+ignore = ["E501"]
+
+[tool.ruff.lint.isort]
+# The bundle is developed alongside the bridge package (a sibling repo by the
+# same authors), so group `bridge` imports as first-party.
+known-first-party = ["bridge"]
+
+[tool.pylint.main]
+py-version = "3.14"
+
+[tool.pylint."messages control"]
+disable = [
+    # Complexity metrics: pipeline steps are intentionally written as single
+    # top-to-bottom routines that mirror the manuscript's procedure.
+    "too-many-arguments",
+    "too-many-positional-arguments",
+    "too-many-locals",
+    "too-many-branches",
+    "too-many-statements",
+    "too-many-instance-attributes",
+    # Line length is unenforced (matches Ruff's `ignore = ["E501"]`).
+    "line-too-long",
+]
+
+[tool.pylint.basic]
+# Pipeline scripts use an ordered numeric prefix (01_coffee_certification_...);
+# they are executed, never imported, so the leading-digit module name is
+# intentional. Math/stats single-capital names are conventional, not violations.
+good-names = ["X", "Y", "B", "N", "df", "fh", "i", "j", "k", "n", "p", "_"]
+module-rgx = "^([0-9]+_)?[a-z_][a-z0-9_]*$"

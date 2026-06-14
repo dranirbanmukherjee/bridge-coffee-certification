@@ -1,0 +1,21 @@
+{
+  "projection_units": 72,
+  "embedding_units_per_attribute": 14,
+  "mask_size": 512,
+  "learning_rate": 0.0033106719955681013,
+  "weight_decay": 0.0001589765715103709,
+  "attribute_names": [
+    "profile",
+    "condition",
+    "experiment"
+  ],
+  "attribute_sizes": {
+    "profile": 2,
+    "condition": 2,
+    "experiment": 2
+  },
+  "orig_size": 768,
+  "mini_batch_size": 10,
+  "contrastive_temperature": 0.1,
+  "contrastive_weight": 0.1
+}
