@@ -169,7 +169,7 @@ text length on preference is nonlinear. Full per-parameter values are in
 
 - **Anirban Mukherjee** (anirban@avyayamholdings.com) — Principal, Avyayam Holdings
 - **Hannah H. Chang** (hannahchang@smu.edu.sg; *corresponding author*) — Associate Professor of Marketing, Lee Kong Chian School of Business, Singapore Management University
-- **Sachin Gupta** — Henrietta Johnson Louis Professor of Marketing, SC Johnson College of Business, Cornell University
+- **Sachin Gupta** (sg248@cornell.edu) — Henrietta Johnson Louis Professor of Marketing, SC Johnson College of Business, Cornell University
 
 ## Acknowledgments
 
