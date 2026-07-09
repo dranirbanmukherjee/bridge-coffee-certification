@@ -77,6 +77,9 @@ ollama pull qwen2.5:32b-instruct-q8_0
 
 Fresh runs write to an `output/` directory (git-ignored); each step prefers a
 shipped `precomputed/` copy when present, so any step can be run independently.
+In the archived research deposit of this bundle, `output/` ships populated from
+the authors' verification re-run; `precomputed/` remains the authoritative source
+and every step prefers it when both copies exist.
 
 **Sample sizes**: the raw exports hold all responses; estimation filters to the
 completed, matched observations reported in the manuscript — **N = 353** (Fair

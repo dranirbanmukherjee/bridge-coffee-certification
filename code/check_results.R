@@ -41,7 +41,7 @@ cat(rep("=", 55), "\n", sep="")
 
 if (!dir.exists(model_dir)) stop("Model directory not found: ", model_dir)
 
-# Ground truth from Results.md § Coffee Certification
+# Ground truth from RESULTS.md § Coffee Certification
 # Fixed effects detail tables
 ground_truth <- list(
   # FT oracle

@@ -79,7 +79,7 @@ LOOIC slightly favors bridge_1 for FT, bridge_2 for Org. Differences are negligi
 | Org | bridge_1 | 1.002 | 2424 |
 | Org | bridge_2 | 1.002 | 3365 |
 
-All models converge cleanly (Rhat <= 1.002, ESS >= 1857).
+All models converge cleanly (Rhat <= 1.002; bulk ESS >= 2,424 across the reported parameters).
 
 ---
 
@@ -111,7 +111,7 @@ Sample-description / manipulation-check statistics (not focal Table 2 estimates)
 
 ## Nuisance Control Correlations with wc_diff
 
-Computed on estimation sample (after all filters; reproduced by `check_results.R`):
+Computed on estimation sample (after all filters; printed by `05_coffee_certification_estimate.R`):
 
 | Experiment | INTN1 | INTN2 |
 |------------|-------|-------|

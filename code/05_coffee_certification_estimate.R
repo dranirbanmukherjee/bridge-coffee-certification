@@ -43,7 +43,17 @@ count_words <- function(x) lengths(strsplit(trimws(x), "\\s+"))
 
 # Resolve the study/bundle root from this script's own location (code/<this>.R)
 # so it runs unchanged on any machine and from any working directory.
-script_dir <- tryCatch(dirname(sys.frame(1)$ofile), error = function(e) NULL)
+script_dir <- tryCatch({
+  args <- commandArgs(trailingOnly = FALSE)
+  file_arg <- grep("^--file=", args, value = TRUE)
+  if (length(file_arg) > 0) {
+    dirname(normalizePath(gsub("~+~", " ", sub("^--file=", "", file_arg[1]), fixed = TRUE), mustWork = FALSE))
+  } else if (!is.null(sys.frame(1)$ofile)) {
+    dirname(normalizePath(sys.frame(1)$ofile, mustWork = FALSE))
+  } else {
+    NULL
+  }
+}, error = function(e) NULL)
 base_dir <- if (!is.null(script_dir)) dirname(script_dir) else getwd()
 
 # Cached model fits: prefer a shipped precomputed copy, else the working output dir.
