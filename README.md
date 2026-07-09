@@ -61,6 +61,7 @@ ollama pull qwen2.5:32b-instruct-q8_0
 │   ├── 03_coffee_certification_train_bridge.py          # Step 3: train BRIDGE, extract controls
 │   ├── 04_coffee_certification_merge_controls.py        # Step 4: map controls to experiment data
 │   ├── 05_coffee_certification_estimate.R               # Step 5: Bayesian estimation (Table 2)
+│   ├── 06_coffee_certification_descriptives.R           # Sample + manipulation checks (WA §E)
 │   └── check_results.R                                  # Validate fits against RESULTS.md
 ├── data/                               # Raw, de-identified Qualtrics exports
 │   ├── Fair_Trade_Coffee_Exp_Data_20251231.csv
@@ -135,6 +136,10 @@ Fits four Gaussian models per experiment and prints Table 2:
 - **BRIDGE (1 control)** and **BRIDGE (2 controls)**: use the BRIDGE-derived nuisance controls
 
 Cached models load instantly; re-fitting from scratch takes ~15 minutes.
+
+An optional descriptives script (`code/06_coffee_certification_descriptives.R`)
+reports sample composition and condition counts; it is not part of the Table 2
+pipeline.
 
 ---
 

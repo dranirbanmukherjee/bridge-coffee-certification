@@ -92,6 +92,23 @@ All models converge cleanly (Rhat <= 1.002, ESS >= 1857).
 
 ---
 
+## Sample & Manipulation Checks (Web Appendix §E)
+
+Reproduced by `code/06_coffee_certification_descriptives.R` (deterministic; from the de-identified `data/` exports):
+
+| | Fair Trade (N=353) | Organic (N=352) |
+|---|---|---|
+| Mean age | 44.9 | 44.7 |
+| Gender (women / men / non-binary / pref. not say) | 43.9% / 55.5% / 0.6% / — | 49.7% / 48.9% / 1.1% / 0.3% |
+| Task involvement (3 items), Cronbach's α | .769 | .684 |
+| Mood (4 items), Cronbach's α | .905 | .903 |
+| Involvement ~ condition (one-way ANOVA) | F(2,350)=1.52, p=.220 | F(2,349)=0.55, p=.579 |
+| Mood ~ condition (one-way ANOVA) | F(2,350)=0.32, p=.727 | F(2,349)=0.97, p=.380 |
+
+Sample-description / manipulation-check statistics (not focal Table 2 estimates).
+
+---
+
 ## Nuisance Control Correlations with wc_diff
 
 Computed on estimation sample (after all filters; reproduced by `check_results.R`):
@@ -100,13 +117,6 @@ Computed on estimation sample (after all filters; reproduced by `check_results.R
 |------------|-------|-------|
 | FT | 0.71 | 0.87 |
 | Org | -0.14 | 0.54 |
-
-Partial correlations with wc2_diff (after partialing wc_diff):
-
-| Experiment | INTN1 | INTN2 |
-|------------|-------|-------|
-| FT | -0.53 | -0.56 |
-| Org | -0.19 | -0.85 |
 
 SVD ordering != confound alignment. In FT, both controls correlate with WC. In Org, it's primarily INTN2.
 

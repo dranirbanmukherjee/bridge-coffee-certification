@@ -102,10 +102,15 @@ fit_or_load <- function(name, formula, data, brm_args, model_dir) {
 #'
 #' @param file_path Character, path to the experiment CSV file.
 #' @param condition_levels Character vector of ordered condition factor levels.
-#' @return Data frame with columns Pref, wc_diff, wc2_diff, Intercept, and
+#' @return Data frame with columns Pref, wc_diff, Intercept, and
 #'   ComparisonCondition as a factor (levels in the supplied order).
 #' @keywords internal
 load_data <- function(file_path, condition_levels) {
+  if (!file.exists(file_path)) {
+    stop("Input not found: ", file_path,
+         "\nRun step 04 (04_coffee_certification_merge_controls.py) first, ",
+         "or restore the shipped precomputed/ copy.")
+  }
   d <- read.csv(file_path, stringsAsFactors = FALSE)
   d <- subset(d, Q_TerminateFlag == "Complete")
   d$DVPref_Rating_1 <- as.numeric(d$DVPref_Rating_1)
@@ -118,7 +123,6 @@ load_data <- function(file_path, condition_levels) {
   d$wc_base <- count_words(d$Text_Base)
   d$wc_comparison <- count_words(d$Text_Comparison)
   d$wc_diff <- d$wc_comparison - d$wc_base
-  d$wc2_diff <- d$wc_comparison^2 - d$wc_base^2
   d$Intercept <- 1
   d
 }
@@ -145,14 +149,13 @@ cat("\n========== CONTROL VARIABLE MEANS (not centered) ==========\n\n")
 
 #' Report Control Variable Means to Console
 #'
-#' Prints mean values of wc_diff, wc2_diff, and all INTN columns.
+#' Prints mean values of wc_diff and all INTN columns.
 #'
 #' @param d Data frame with control variable columns.
 #' @param label Character, experiment label for display (e.g. "FT", "Org").
 #' @keywords internal
 report_means <- function(d, label) {
   cat(sprintf("  %s wc_diff: mean=%.4f\n", label, mean(d$wc_diff)))
-  cat(sprintf("  %s wc2_diff: mean=%.4f\n", label, mean(d$wc2_diff)))
   intn_cols <- grep("^INTN[0-9]+$", names(d), value = TRUE)
   for (col in intn_cols) {
     cat(sprintf("  %s %s: mean=%.6f\n", label, col, mean(d[[col]])))
@@ -448,6 +451,7 @@ for (exp_label in c("FT", "Org")) {
 # Save
 ##############################################
 
+dir.create(file.path(base_dir, "output"), showWarnings = FALSE, recursive = TRUE)
 save(ft_m, org_m, data_ft, data_org,
      file = file.path(base_dir, "output/fitted_models_separate.RData"))
 
