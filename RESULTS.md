@@ -11,10 +11,10 @@
 
 | Estimator | FT Estimate [95% CI] | Org Estimate [95% CI] |
 |-----------|---------------------|----------------------|
-| Oracle (matched) | 1.324 [0.962, 1.694] | 0.970 [0.561, 1.384] |
-| Oracle (short) | 0.155 [-0.215, 0.523] | 0.378 [-0.017, 0.777] |
-| Oracle (long) | 1.293 [0.883, 1.689] | 1.255 [0.885, 1.611] |
-| Naive (pooled) | 0.923 [0.699, 1.142] | 0.882 [0.655, 1.105] |
+| Naïve (matched) | 1.324 [0.962, 1.694] | 0.970 [0.561, 1.384] |
+| Naïve (shorter) | 0.155 [-0.215, 0.523] | 0.378 [-0.017, 0.777] |
+| Naïve (longer) | 1.293 [0.883, 1.689] | 1.255 [0.885, 1.611] |
+| Naïve (pooled) | 0.923 [0.699, 1.142] | 0.882 [0.655, 1.105] |
 | Word Count | 0.796 [0.566, 1.037] | 0.756 [0.512, 0.991] |
 | BRIDGE (1 ctrl) | 1.242 [0.997, 1.493] | 1.021 [0.507, 1.537] |
 | BRIDGE (2 ctrl) | 1.288 [0.889, 1.699] | 0.951 [0.454, 1.432] |
@@ -22,6 +22,8 @@
 ---
 
 ## Fixed Effects Detail
+
+*Model key `oracle` = the paper's "Naïve" specification.*
 
 ### Fair Trade
 
@@ -127,7 +129,7 @@ SVD ordering != confound alignment. In FT, both controls correlate with WC. In O
 - **Matched condition** shows the largest treatment effect in both experiments (FT: 1.324, Org: 0.970)
 - **Short condition** shows attenuated or near-zero effects (FT: 0.155 with CI spanning zero, Org: 0.378 with CI just touching zero)
 - **Long condition** shows treatment effects comparable to matched (FT: 1.293, Org: 1.255)
-- **Naive (pooled)** masks this heterogeneity (FT: 0.923, Org: 0.882) — a weighted average pulled down by the weak short-condition effect
+- **Naïve (pooled)** masks this heterogeneity (FT: 0.923, Org: 0.882) — a weighted average pulled down by the weak short-condition effect
 - **BRIDGE (1 ctrl)** intercept (FT: 1.242, Org: 1.021) approximates the matched-condition estimate, demonstrating BRIDGE's ability to recover the confound-free treatment effect without knowing condition assignments
 - **BRIDGE (2 ctrl)** adds little over 1 ctrl: INTN2 CI spans zero for FT, is marginally significant for Org
 
@@ -138,8 +140,8 @@ SVD ordering != confound alignment. In FT, both controls correlate with WC. In O
 | Result | Manuscript | Web Appendix |
 |--------|-----------|--------------|
 | Summary table (5 estimators) | Coffee Certification section, Table 2 | §E (estimation approach) |
-| Oracle cell means | Coffee Certification section | §E (estimation approach) |
-| BRIDGE vs Oracle comparison | Coffee Certification section | §E |
+| Naïve cell means | Coffee Certification section | §E (estimation approach) |
+| BRIDGE vs Naïve comparison | Coffee Certification section | §E |
 | Word count overcorrection | Coffee Certification section | §E |
 | Nuisance control correlations | — | — |
 | LOOIC comparison | — | — |

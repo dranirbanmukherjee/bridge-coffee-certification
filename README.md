@@ -20,7 +20,7 @@ To reproduce the reported results (Table 2 in the manuscript), run the R
 estimation script — it loads the cached Bayesian models and pre-computed data:
 
 ```bash
-cd 02_Coffee_Certification
+cd bridge-coffee-certification    # (the folder is 02_Coffee_Certification in the OSF deposit)
 Rscript code/05_coffee_certification_estimate.R   # prints the full results table
 Rscript code/check_results.R                      # validates against RESULTS.md
 ```
@@ -40,6 +40,13 @@ Install the `bridge` package (for Steps 1–4) from its public repository, pinne
 pip install "git+https://github.com/dranirbanmukherjee/bridge.git@v0.1.0"
 ```
 
+If you obtained this bundle via the OSF data deposit, the identical package source
+sits alongside the bundle and installs offline:
+
+```bash
+pip install ../bridge_package
+```
+
 The augmentation step (Step 2) additionally needs a local language model:
 
 ```bash
@@ -52,7 +59,7 @@ ollama pull qwen2.5:32b-instruct-q8_0
 ## What This Bundle Contains
 
 ```
-02_Coffee_Certification/
+bridge-coffee-certification/        # (= 02_Coffee_Certification/ in the OSF deposit)
 ├── README.md
 ├── RESULTS.md                          # Validated results reference (Table 2 + LOOIC)
 ├── code/
@@ -117,7 +124,9 @@ python code/03_coffee_certification_train_bridge.py
 ```
 Trains the BRIDGE network on three attributes (profile, condition, experiment),
 selecting the architecture with Optuna (50 trials), and extracts the orthogonal
-nuisance controls for the 16 originals via the SVD elbow criterion.
+nuisance controls for the 16 originals via the SVD elbow criterion. *(Downloads
+the gated `google/embeddinggemma-300m` encoder from Hugging Face — requires a
+logged-in HF account with the Gemma license accepted; GPU/Apple-silicon recommended.)*
 **Output**: `output/bridge_model/`
 
 ### Step 4 — Map nuisance controls to experiment data
@@ -134,7 +143,7 @@ descriptions to the 16 originals, and writes the nuisance-control difference
 Rscript code/05_coffee_certification_estimate.R
 ```
 Fits four Gaussian models per experiment and prints Table 2:
-- **Oracle**: condition indicators → matched / shorter / longer cell means (and a sample-size-weighted *Naive (pooled)*)
+- **Naïve** (fit internally as the `oracle` model): condition indicators → matched / shorter / longer cell means (and a sample-size-weighted *Naïve (pooled)*)
 - **Word Count**: controls for the word-count difference
 - **BRIDGE (1 control)** and **BRIDGE (2 controls)**: use the BRIDGE-derived nuisance controls
 
@@ -150,15 +159,15 @@ pipeline.
 
 | Estimator | Fair Trade [95% CI] | Organic [95% CI] |
 |-----------|---------------------|-------------------|
-| Oracle (matched) | 1.32 [0.96, 1.69] | 0.97 [0.56, 1.38] |
-| Oracle (short)   | 0.16 [−0.22, 0.52] | 0.38 [−0.02, 0.78] |
-| Oracle (long)    | 1.29 [0.88, 1.69] | 1.26 [0.89, 1.61] |
-| Naive (pooled)   | 0.92 [0.70, 1.14] | 0.88 [0.66, 1.11] |
+| Naïve (matched) | 1.32 [0.96, 1.69] | 0.97 [0.56, 1.38] |
+| Naïve (shorter)  | 0.16 [−0.22, 0.52] | 0.38 [−0.02, 0.78] |
+| Naïve (longer)   | 1.29 [0.88, 1.69] | 1.26 [0.89, 1.61] |
+| Naïve (pooled)   | 0.92 [0.70, 1.14] | 0.88 [0.66, 1.11] |
 | Word Count       | 0.80 [0.57, 1.04] | 0.76 [0.51, 0.99] |
 | BRIDGE (1 ctrl)  | 1.24 [1.00, 1.49] | 1.02 [0.51, 1.54] |
 | BRIDGE (2 ctrl)  | 1.29 [0.89, 1.70] | 0.95 [0.45, 1.43] |
 
-BRIDGE recovers the matched-condition (Oracle) benchmark without observing the
+BRIDGE recovers the matched-condition (Naïve) benchmark without observing the
 experimental conditions. The Word Count model overcorrects because the effect of
 text length on preference is nonlinear. Full per-parameter values are in
 `RESULTS.md`.

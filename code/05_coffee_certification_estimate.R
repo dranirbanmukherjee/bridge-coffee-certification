@@ -5,11 +5,11 @@
 # Purpose: Reproduce Table 2. Per experiment (Fair Trade and Organic, separately)
 #          fit four Gaussian brms models and report the deconfounded treatment
 #          effect with 95% credible intervals:
-#            oracle:   Pref ~ 0 + ComparisonCondition       (preregistered indicator)
+#            oracle:   Pref ~ 0 + ComparisonCondition       (preregistered indicator; reported as "Naïve")
 #            wc:       Pref ~ 0 + Intercept + wc_diff        (word-count control)
 #            bridge_1: Pref ~ 0 + Intercept + INTN1          (BRIDGE, 1 nuisance control)
 #            bridge_2: Pref ~ 0 + Intercept + INTN1 + INTN2  (BRIDGE, 2 controls)
-#          Naive (pooled) is derived from the Oracle cell means with sample-size
+#          Naïve (pooled) is derived from the oracle-model cell means with sample-size
 #          weights. Using ~ 0 + Intercept avoids brms centering; controls are not
 #          mean-centered, so the intercept is the deconfounded treatment effect.
 #          Models are cached as .rds; re-running loads the cache.
@@ -222,7 +222,7 @@ cat("\nAll models estimated/loaded.\n")
 # Helpers
 ##############################################
 
-#' Derive Cell-Mean and Pooled Posterior Draws from Oracle Model
+#' Derive Cell-Mean and Pooled Posterior Draws from the Naïve (oracle) Model
 #'
 #' Extracts posterior draws for each condition and computes the sample-size
 #' weighted pooled estimate (naive unconditional average).
@@ -307,36 +307,36 @@ for (exp_label in c("FT", "Org")) {
   }
 }
 
-# Oracle-derived cell means and pooled
+# Naïve (oracle-model) cell means and pooled
 ft_oracle <- oracle_derived(ft_m$oracle, data_ft)
 org_oracle <- oracle_derived(org_m$oracle, data_org)
 
-cat("\nOracle cell means (FT):\n")
+cat("\nNaïve cell means (FT):\n")
 cat(pfmt(ft_oracle$matched, "Matched (benchmark)"), "\n")
 cat(pfmt(ft_oracle$short, "Short"), "\n")
 cat(pfmt(ft_oracle$long, "Long"), "\n")
 cat(pfmt(ft_oracle$pooled, "Pooled (derived)"), "\n")
 
-cat("\nOracle cell means (Org):\n")
+cat("\nNaïve cell means (Org):\n")
 cat(pfmt(org_oracle$matched, "Matched (benchmark)"), "\n")
 cat(pfmt(org_oracle$short, "Short"), "\n")
 cat(pfmt(org_oracle$long, "Long"), "\n")
 cat(pfmt(org_oracle$pooled, "Pooled (derived)"), "\n")
 
 # Diagnostic
-cat(sprintf("\n  Diagnostic: FT sample mean = %.3f (oracle pooled = %.3f)\n",
+cat(sprintf("\n  Diagnostic: FT sample mean = %.3f (naïve pooled = %.3f)\n",
             mean(data_ft$Pref), mean(ft_oracle$pooled)))
-cat(sprintf("  Diagnostic: Org sample mean = %.3f (oracle pooled = %.3f)\n",
+cat(sprintf("  Diagnostic: Org sample mean = %.3f (naïve pooled = %.3f)\n",
             mean(data_org$Pref), mean(org_oracle$pooled)))
 
 # Summary table
 cat("\n========== SUMMARY TABLE ==========\n\n")
 cat(sprintf("%-25s  %-25s  |  %-25s\n", "Estimator", "FT [95% CI]", "Org [95% CI]"))
 cat(paste(rep("-", 85), collapse = ""), "\n")
-cat(make_row("Oracle (matched)", ft_oracle$matched, org_oracle$matched), "\n")
-cat(make_row("Oracle (short)", ft_oracle$short, org_oracle$short), "\n")
-cat(make_row("Oracle (long)", ft_oracle$long, org_oracle$long), "\n")
-cat(make_row("Naive (pooled)", ft_oracle$pooled, org_oracle$pooled), "\n")
+cat(make_row("Naïve (matched)", ft_oracle$matched, org_oracle$matched), "\n")
+cat(make_row("Naïve (shorter)", ft_oracle$short, org_oracle$short), "\n")
+cat(make_row("Naïve (longer)", ft_oracle$long, org_oracle$long), "\n")
+cat(make_row("Naïve (pooled)", ft_oracle$pooled, org_oracle$pooled), "\n")
 cat(make_row("Word Count", get_int(ft_m$wc), get_int(org_m$wc)), "\n")
 cat(make_row("BRIDGE (1 ctrl)", get_int(ft_m$bridge_1), get_int(org_m$bridge_1)), "\n")
 cat(make_row("BRIDGE (2 ctrl)", get_int(ft_m$bridge_2), get_int(org_m$bridge_2)), "\n")
@@ -388,17 +388,17 @@ post_diff <- function(draws_a, draws_b, label) {
               mean(delta), quantile(delta, 0.025), quantile(delta, 0.975)))
 }
 
-# BRIDGE vs Oracle matched
+# BRIDGE vs Naïve matched
 post_diff(get_int(ft_m$bridge_1), ft_oracle$matched,
-          "FT: BRIDGE(1) - Oracle(matched)")
+          "FT: BRIDGE(1) - Naïve(matched)")
 post_diff(get_int(org_m$bridge_1), org_oracle$matched,
-          "Org: BRIDGE(1) - Oracle(matched)")
+          "Org: BRIDGE(1) - Naïve(matched)")
 
-# WC vs Oracle matched (overcorrection)
+# WC vs Naïve matched (overcorrection)
 post_diff(get_int(ft_m$wc), ft_oracle$matched,
-          "FT: WC - Oracle(matched)")
+          "FT: WC - Naïve(matched)")
 post_diff(get_int(org_m$wc), org_oracle$matched,
-          "Org: WC - Oracle(matched)")
+          "Org: WC - Naïve(matched)")
 
 ##############################################
 # Condition-Specific WC Estimates
