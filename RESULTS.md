@@ -1,6 +1,6 @@
 # Coffee Certification — Results Reference
 
-**Studies**: Fair Trade (N=353) and Organic (N=352)
+**Experiments**: Fair Trade (Experiment 1, N=353) and Organic (Experiment 2, N=352)
 **Family**: Gaussian (identity link)
 **Pipeline**: single joint BRIDGE model, separate per-experiment estimation
 **Validated**: 2026-06-13 (20/20 FE match, 4/4 LOOIC match)
@@ -23,7 +23,7 @@
 
 ## Fixed Effects Detail
 
-*Model key `oracle` = the paper's "Naïve" specification.*
+*Model key `oracle` = the paper's "Naïve" specification (Specification 1). The model is fit in cell-means form (`Pref ~ 0 + ComparisonCondition`), so each `ComparisonCondition*` parameter below is a condition-specific treatment effect; in the manuscript's reference coding these are β̂₀, β̂₀ + β̂₁, and β̂₀ + β̂₂ — an equivalent parameterization of the same model.*
 
 ### Fair Trade
 
@@ -139,7 +139,7 @@ SVD ordering != confound alignment. In FT, both controls correlate with WC. In O
 
 | Result | Manuscript | Web Appendix |
 |--------|-----------|--------------|
-| Summary table (5 estimators) | Coffee Certification section, Table 2 | §E (estimation approach) |
+| Summary table (Naïve, Word Count, BRIDGE estimators) | Coffee Certification section, Table 2 | §E (estimation approach) |
 | Naïve cell means | Coffee Certification section | §E (estimation approach) |
 | BRIDGE vs Naïve comparison | Coffee Certification section | §E |
 | Word count overcorrection | Coffee Certification section | §E |

@@ -1,10 +1,11 @@
 # BRIDGE Reproducibility Bundle: Coffee Certification Experiments
 
-This bundle reproduces the Coffee Certification Experiments (Study 1) from the
-manuscript. It demonstrates the complete BRIDGE pipeline — from description
-augmentation through nuisance-control extraction to Bayesian estimation — on a
-parsimonious application where certification treatments are embedded in product
-text and confounded with description length.
+This bundle reproduces the Coffee Certification Experiments from the manuscript
+(Experiment 1: fair trade; Experiment 2: organic). It demonstrates the complete
+BRIDGE pipeline — from description augmentation through nuisance-control
+extraction to Bayesian estimation — on a parsimonious application where
+certification treatments are embedded in product text and deliberately
+confounded with description length.
 
 The code here is the same code used to produce the reported results: each script
 runs end-to-end, and shipped `precomputed/` artifacts let you reproduce the
@@ -142,8 +143,9 @@ descriptions to the 16 originals, and writes the nuisance-control difference
 ```bash
 Rscript code/05_coffee_certification_estimate.R
 ```
-Fits four Gaussian models per experiment and prints Table 2:
-- **Naïve** (fit internally as the `oracle` model): condition indicators → matched / shorter / longer cell means (and a sample-size-weighted *Naïve (pooled)*)
+Fits four Gaussian models per experiment and prints the full results table
+(manuscript Table 2, plus the two-control BRIDGE variant noted there):
+- **Naïve** (fit internally as the `oracle` model): a single Bayesian linear regression with condition indicators — the manuscript's Specification 1, which uses the medium-length condition as reference (matched = β̂₀, shorter = β̂₀ + β̂₁, longer = β̂₀ + β̂₂). The script fits the equivalent cell-means form (`Pref ~ 0 + ComparisonCondition`), whose coefficients are those three treatment effects directly; a sample-size-weighted *Naïve (pooled)* is derived from them
 - **Word Count**: controls for the word-count difference
 - **BRIDGE (1 control)** and **BRIDGE (2 controls)**: use the BRIDGE-derived nuisance controls
 
@@ -167,10 +169,13 @@ pipeline.
 | BRIDGE (1 ctrl)  | 1.24 [1.00, 1.49] | 1.02 [0.51, 1.54] |
 | BRIDGE (2 ctrl)  | 1.29 [0.89, 1.70] | 0.95 [0.45, 1.43] |
 
-BRIDGE recovers the matched-condition (Naïve) benchmark without observing the
-experimental conditions. The Word Count model overcorrects because the effect of
-text length on preference is nonlinear. Full per-parameter values are in
-`RESULTS.md`.
+BRIDGE recovers treatment effects comparable to the length-matched benchmark
+without knowledge of the experimental conditions. The Word Count model
+overcorrects at the matched condition: a standard word-count covariate does not
+adequately capture the relationship between description length and preference.
+The manuscript's Table 2 reports the one-control model as "BRIDGE"; its table
+note records that results with two nuisance controls are similar (the
+*BRIDGE (2 ctrl)* row above). Full per-parameter values are in `RESULTS.md`.
 
 ---
 
