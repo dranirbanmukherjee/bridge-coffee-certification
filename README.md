@@ -1,7 +1,8 @@
 # BRIDGE Reproducibility Bundle: Coffee Certification Experiments
 
 This bundle reproduces the Coffee Certification Experiments from the manuscript
-(Experiment 1: fair trade; Experiment 2: organic). It demonstrates the complete
+([`BRIDGE_Preprint.pdf`](BRIDGE_Preprint.pdf); Experiment 1: fair trade;
+Experiment 2: organic). It demonstrates the complete
 BRIDGE pipeline — from description augmentation through nuisance-control
 extraction to Bayesian estimation — on a parsimonious application where
 certification treatments are embedded in product text and deliberately
@@ -62,6 +63,7 @@ ollama pull qwen2.5:32b-instruct-q8_0
 ```
 bridge-coffee-certification/        # (= 02_Coffee_Certification/ in the OSF deposit)
 ├── README.md
+├── BRIDGE_Preprint.pdf                 # Manuscript preprint (includes web appendix)
 ├── RESULTS.md                          # Validated results reference (Table 2 + LOOIC)
 ├── code/
 │   ├── 01_coffee_certification_prepare_descriptions.py  # Step 1: 16 base descriptions
@@ -186,6 +188,12 @@ note records that results with two nuisance controls are similar (the
 > Experiments
 >
 > Anirban Mukherjee, Hannah H. Chang, and Sachin Gupta
+>
+> *Journal of Marketing Research*, conditionally accepted.
+
+The manuscript preprint (including the web appendix) ships with this bundle as
+[`BRIDGE_Preprint.pdf`](BRIDGE_Preprint.pdf) and is also available on
+[SSRN](https://ssrn.com/abstract=5296429).
 
 ## Authors
 
