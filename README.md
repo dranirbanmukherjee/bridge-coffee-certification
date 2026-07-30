@@ -39,7 +39,7 @@ No Python or BRIDGE installation required for the Quick Start.
 Install the `bridge` package (for Steps 1–4) from its public repository, pinned to the version used in the paper:
 
 ```bash
-pip install "git+https://github.com/dranirbanmukherjee/bridge.git@v0.1.0"
+pip install "git+https://github.com/dranirbanmukherjee/bridge.git@v0.2.0"
 ```
 
 If you obtained this bundle via the OSF data deposit, the identical package source
