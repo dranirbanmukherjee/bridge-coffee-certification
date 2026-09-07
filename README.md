@@ -42,8 +42,8 @@ Install the `bridge` package (for Steps 1–4) from its public repository, pinne
 pip install "git+https://github.com/dranirbanmukherjee/bridge.git@v0.2.0"
 ```
 
-If you obtained this bundle via the OSF data deposit, the identical package source
-sits alongside the bundle and installs offline:
+If you obtained this bundle via the [OSF data deposit](https://osf.io/5d6kx/), the
+identical package source sits alongside the bundle and installs offline:
 
 ```bash
 pip install ../bridge_package
@@ -178,6 +178,15 @@ adequately capture the relationship between description length and preference.
 The manuscript's Table 2 reports the one-control model as "BRIDGE"; its table
 note records that results with two nuisance controls are similar (the
 *BRIDGE (2 ctrl)* row above). Full per-parameter values are in `RESULTS.md`.
+
+---
+
+## Related Resources
+
+- [**bridge**](https://github.com/dranirbanmukherjee/bridge) — the BRIDGE Python
+  package used by Steps 1–4 of this pipeline (pinned to `v0.2.0` above).
+- [**OSF deposit**](https://osf.io/5d6kx/) — the full replication package for all
+  studies in the paper, of which this bundle is one component.
 
 ---
 
