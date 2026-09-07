@@ -95,6 +95,11 @@ and every step prefers it when both copies exist.
 completed, matched observations reported in the manuscript — **N = 353** (Fair
 Trade) and **N = 352** (Organic).
 
+**Survey instruments**: the Qualtrics files for both experiments
+(`Coffee_fairtrade_cert_JMR.qsf`, `Coffee_organic_cert_JMR.qsf`) are not included in
+this repository; they are in `00_Survey_Instruments/` in the
+[OSF deposit](https://osf.io/5d6kx/).
+
 **File formats**: `.pkl` for Python-internal handoffs, `.csv` at the Python→R
 boundary (the estimation step reads the `*_data_with_nuisance.csv` files).
 
@@ -118,7 +123,12 @@ python code/02_coffee_certification_augment_descriptions.py
 ```
 Uses a local Qwen 2.5 32B model to generate 150 variations per base description
 (50 each for summarize / paraphrase / elaborate), yielding 2,416 training rows.
-Responses are cached, so re-runs are deterministic. *(Requires ollama; ~2–5 h.)*
+Responses are cached to `output/augmented_coffee.json` as they are generated, so an
+interrupted run resumes deterministically. A fresh run with no cache produces *new*
+variations — the augmentation strategies sample at temperature 0.3–0.9 and no seed is
+passed to the model — so the shipped `precomputed/augmented_descriptions.pkl` is the
+authoritative record of the augmentations used in the paper.
+*(Requires ollama; ~2–5 h.)*
 **Output**: `output/augmented_descriptions.pkl`
 
 ### Step 3 — Train BRIDGE
@@ -138,7 +148,9 @@ python code/04_coffee_certification_merge_controls.py
 ```
 Reads the raw Qualtrics exports, matches each participant's base/comparison
 descriptions to the 16 originals, and writes the nuisance-control difference
-(Comparison − Base) and the word-count difference.
+(Comparison − Base) and the word-count difference. The CSVs carry all five extracted
+nuisance components (`INTN1`–`INTN5`, in SVD order); the reported models use only the
+first one or two (Step 5).
 **Output**: `output/{ft,org}_data_with_nuisance.csv`
 
 ### Step 5 — Bayesian estimation
@@ -147,7 +159,9 @@ Rscript code/05_coffee_certification_estimate.R
 ```
 Fits four Gaussian models per experiment and prints the full results table
 (manuscript Table 2, plus the two-control BRIDGE variant noted there):
-- **Naïve** (fit internally as the `oracle` model): a single Bayesian linear regression with condition indicators — the manuscript's Specification 1, which uses the medium-length condition as reference (matched = β̂₀, shorter = β̂₀ + β̂₁, longer = β̂₀ + β̂₂). The script fits the equivalent cell-means form (`Pref ~ 0 + ComparisonCondition`), whose coefficients are those three treatment effects directly; a sample-size-weighted *Naïve (pooled)* is derived from them
+- **Naïve** (fit internally as the `oracle` model — a legacy internal key, unrelated to
+  the "Oracle" of the paper's Monte Carlo simulations, where that name denotes the
+  infeasible gold-standard estimator): a single Bayesian linear regression with condition indicators — the manuscript's Specification 1, which uses the medium-length condition as reference (matched = β̂₀, shorter = β̂₀ + β̂₁, longer = β̂₀ + β̂₂). The script fits the equivalent cell-means form (`Pref ~ 0 + ComparisonCondition`), whose coefficients are those three treatment effects directly; a sample-size-weighted *Naïve (pooled)* is derived from them
 - **Word Count**: controls for the word-count difference
 - **BRIDGE (1 control)** and **BRIDGE (2 controls)**: use the BRIDGE-derived nuisance controls
 
@@ -156,6 +170,11 @@ Cached models load instantly; re-fitting from scratch takes ~15 minutes.
 An optional descriptives script (`code/06_coffee_certification_descriptives.R`)
 reports sample composition and condition counts; it is not part of the Table 2
 pipeline.
+
+**Reproducibility note:** all models fit with a fixed seed (`seed = 42`, cmdstanr
+backend, 4 chains), so refits reproduce the reported estimates exactly given the same
+software versions. The shipped `precomputed/` fits are the authoritative record, and
+`check_results.R` validates the reported numbers against them without refitting.
 
 ---
 
