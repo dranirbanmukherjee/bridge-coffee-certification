@@ -189,7 +189,7 @@ note records that results with two nuisance controls are similar (the
 >
 > Anirban Mukherjee, Hannah H. Chang, and Sachin Gupta
 >
-> *Journal of Marketing Research*, forthcoming.
+> *Journal of Marketing Research*, 2026. https://doi.org/10.1177/00222437261484068
 
 The manuscript preprint (including the web appendix) ships with this bundle as
 [`BRIDGE_Preprint.pdf`](BRIDGE_Preprint.pdf) and is also available on
